@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr" class="form-page">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimisation de CV - cv p par ABMCY</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo">
+            <a href="index.html"><img src="img/logo.svg" alt="Logo cv p"></a>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html#services">Services</a>
+            <a href="index.html#process">Processus</a>
+            <a href="index.html#testimonials">Témoignages</a>
+            <a href="#" class="nav-contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="optimisation-form-section" class="page-section form-section">
+            <h2 class="section-title">Optimisez votre CV</h2>
+            <p class="section-subtitle">Importez votre CV et sélectionnez les améliorations souhaitées. Nous nous occupons du reste.</p>
+
+            <form id="cv-form" class="optimisation-form">
+                <div class="form-group">
+                    <label for="name">Nom complet</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Adresse e-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cv-file">Déposez votre CV ici (PDF, DOCX)</label>
+                    <input type="file" id="cv-file" name="cvFile" accept=".pdf,.doc,.docx" required>
+                </div>
+
+                <fieldset class="form-group">
+                    <legend>Quels aspects de votre CV souhaitez-vous optimiser en priorité ?</legend>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="opt-structure" name="options" value="Structure et mise en page">
+                        <label for="opt-structure"><strong>Structure et mise en page</strong> (lisibilité, hiérarchie, design)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="opt-ats" name="options" value="Mots-clés ATS">
+                        <label for="opt-ats"><strong>Mots-clés ATS</strong> (compatibilité avec les logiciels de recrutement)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="opt-xp" name="options" value="Expériences professionnelles">
+                        <label for="opt-xp"><strong>Expériences professionnelles</strong> (mise en valeur des résultats et impacts)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="opt-hard-skills" name="options" value="Compétences techniques">
+                        <label for="opt-hard-skills"><strong>Compétences techniques</strong> (hard skills, certifications, outils)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="opt-soft-skills" name="options" value="Compétences personnelles">
+                        <label for="opt-soft-skills"><strong>Compétences personnelles</strong> (soft skills, leadership, communication)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="opt-summary" name="options" value="Accroche et résumé">
+                        <label for="opt-summary"><strong>Accroche et résumé</strong> (profil clair et attractif dès le début)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="opt-portfolio" name="options" value="Portfolio / Réalisations">
+                        <label for="opt-portfolio"><strong>Portfolio / Réalisations</strong> (ajout de projets, liens, preuves visuelles)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="opt-langues" name="options" value="Langues et multiculturalité">
+                        <label for="opt-langues"><strong>Langues et multiculturalité</strong> (adaptation wolof/français/anglais)</label>
+                    </div>
+                </fieldset>
+
+                <button type="submit" class="cta-button" id="submit-btn">Envoyer pour optimisation</button>
+                
+                <div id="form-status" class="form-status-message" style="display: none;"></div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2024 cv p par ABMCY. Tous droits réservés.</p>
+        <p><a href="#">Mentions légales</a> | <a href="#">Contact</a></p>
+    </footer>
+
+    <script src="script.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimisation CV pour ATS - cv p par ABMCY</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!--
+        [PROMPT_SUGGESTION]Ajoute une section FAQ à la page ats.html pour répondre aux questions courantes.[/PROMPT_SUGGESTION]
+        [PROMPT_SUGGESTION]Peux-tu rendre le menu de navigation responsive pour les mobiles ?[/PROMPT_SUGGESTION]
+    -->
+    <style>
+        /* Styles spécifiques pour la page ATS */
+        .ats-hero {
+            background-color: #4A90E2; /* Couleur bleue du thème */
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .ats-hero h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+        }
+        .ats-hero p {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+        }
+        .cta-button {
+            background-color: white;
+            color: #4A90E2;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #f1f1f1;
+        }
+        .content-section {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .content-section p, .content-section li {
+            font-family: 'Lato', sans-serif; /* Police de caractère pour le corps du texte */
+            line-height: 1.8;
+            font-size: 1.1em; /* Taille de police pour une meilleure lisibilité */
+        }
+        .content-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .benefit-item {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .benefit-item .fas {
+            font-size: 2.5em;
+            color: #4A90E2;
+            margin-bottom: 15px;
+        }
+        /* Styles pour la FAQ */
+        .faq-section {
+            background-color: var(--abmcy-light-gray);
+        }
+        .faq-item {
+            background-color: var(--abmcy-white);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .faq-question {
+            padding: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+        }
+        .faq-answer {
+            padding: 0 20px 20px;
+            display: none; /* Caché par défaut */
+        }
+        /* Styles pour l'appel à l'action final */
+        .final-cta {
+            background-color: #f4f7f9;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .final-cta .section-title {
+            font-size: 2.2em;
+        }
+        .final-cta p {
+            max-width: 600px;
+            margin: 20px auto 30px;
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo">
+            <a href="index.html"><img src="img/logo.svg" alt="Logo cv p"></a>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html#services">Services</a>
+            <a href="index.html#process">Processus</a>
+            <a href="index.html#testimonials">Témoignages</a>
+            <a href="#" class="nav-contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="ats-hero">
+            <h1>Passez les filtres ATS et décrochez plus d'entretiens</h1>
+            <p>98% des grandes entreprises utilisent un ATS pour trier les CV. Assurez-vous que le vôtre soit lu par un recruteur.</p>
+            <a href="#start-optimization" class="cta-button">Optimiser mon CV maintenant</a>
+        </section>
+
+        <section id="start-optimization" class="content-section page-section">
+            <h2 class="section-title">Pourquoi votre CV est-il invisible ?</h2>
+            <p>Les <strong>Systèmes de Suivi des Candidatures (ATS)</strong> sont des logiciels qui analysent votre CV à la recherche de mots-clés, de formats spécifiques et d'une structure claire. Une mise en page trop créative, des polices exotiques ou l'absence des bons termes peuvent entraîner un rejet automatique de votre candidature. Votre profil, aussi qualifié soit-il, risque de ne jamais atteindre un recruteur.</p>
+            <p>Notre service d'optimisation transforme votre CV en un document parfaitement lisible par les ATS et attractif pour les recruteurs.</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <i class="fas fa-key"></i>
+                    <h3>Analyse de mots-clés</h3>
+                    <p>Nous intégrons les termes exacts que les ATS et les recruteurs recherchent pour votre secteur d'activité.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-file-invoice"></i>
+                    <h3>Formatage Approuvé</h3>
+                    <p>Nous utilisons une structure et une mise en page qui garantissent une lecture parfaite par tous les systèmes ATS.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-user-check"></i>
+                    <h3>Relecture par un expert</h3>
+                    <p>Un spécialiste RH vérifie que votre CV est non seulement optimisé pour les robots, mais aussi percutant pour les humains.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="ats-details">
+            <div class="content-section">
+                <h2 class="section-title">Comment déjouer les robots recruteurs ?</h2>
+                
+                <h3>Qu'est-ce qu'un ATS ?</h3>
+                <p>De plus en plus d’entreprises et de recruteurs ont recours à des logiciels robots, dont l’algorithme permet de trier les candidatures reçues. Ce sont les fameux <strong>ATS (Applicant Tracking System)</strong>, ou "Logiciel de suivi des candidatures" en français.</p>
+                <p>Ces outils offrent aux candidats l’assurance que leur CV sera traité d’égal à égal et sans discrimination. Toutefois, certains profils qui pourraient être intéressants pour le recruteur peuvent parfois être écartés, soit parce que le format du CV n’est pas reconnu, soit parce que le candidat n’a pas utilisé les bons mots-clés.</p>
+
+                <h3>Comment rédiger un CV qui passe les filtres ?</h3>
+                <p>Ces logiciels ont un algorithme précis, auquel il faudra adapter votre candidature pour mettre toutes les chances de votre côté. Voici quelques recommandations simples à suivre :</p>
+                <ul>
+                    <li><strong><i class="fas fa-check-circle" style="color: #27ae60;"></i> Choisissez bien vos mots-clés :</strong> Employez le vocabulaire spécifique à votre milieu professionnel et reprenez les termes de l’offre d’emploi.</li>
+                    <li><strong><i class="fas fa-check-circle" style="color: #27ae60;"></i> Privilégiez un format simple :</strong> Un document Word (.docx) ou un PDF simple est idéal. Évitez les mises en page complexes avec des cadres, des colonnes multiples ou des images qui peuvent perturber l'analyse du robot.</li>
+                    <li><strong><i class="fas fa-check-circle" style="color: #27ae60;"></i> Soignez votre référencement :</strong> Le titre de votre CV doit correspondre à celui de l’annonce. Placez les mots-clés et les expériences les plus pertinentes en haut de votre candidature.</li>
+                    <li><strong><i class="fas fa-check-circle" style="color: #27ae60;"></i> Évitez les abréviations et les fautes :</strong> Un logiciel ne saura pas interpréter une abréviation ou une faute de frappe sur un mot-clé important.</li>
+                </ul>
+                <p>N’oubliez pas que le robot sera le premier lecteur de votre CV, mais le recruteur sera le second ! Il faut trouver le juste équilibre pour plaire aux deux.</p>
+
+                <h3>Comment CVprofessionnel peut vous aider ?</h3>
+                <p>Pour déjouer les filtres des ATS et permettre aux CV rédigés par nos experts d'atteindre les recruteurs, nous travaillons sur plusieurs points essentiels :</p>
+                <ul>
+                    <li><strong><i class="fas fa-cogs" style="color: #4A90E2;"></i> La mise en forme :</strong> Nous utilisons des modèles de CV conçus sur Word qui respectent les normes HR-XML, un format de données qui assure la compatibilité avec les logiciels de ressources humaines.</li>
+                    <li><strong><i class="fas fa-bullseye" style="color: #4A90E2;"></i> La pertinence :</strong> Un ATS cherche à savoir si vous êtes qualifié. Nous utilisons les mots-clés, les titres et les compétences de l'offre d'emploi et de notre base de données métiers pour optimiser votre profil.</li>
+                    <li><strong><i class="fas fa-chart-line" style="color: #4A90E2;"></i> La mise en avant des réussites :</strong> Les recruteurs veulent voir l'impact de votre contribution. Nos experts utilisent des verbes d'action et quantifient vos réalisations avec des chiffres et des indicateurs de performance (KPIs).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="final-cta page-section">
+            <div class="content-section">
+                <h2 class="section-title">Prêt à Décrocher le Job de Vos Rêves ?</h2>
+                <p>Ne laissez plus un robot décider de votre avenir. Faites confiance à nos experts pour créer un CV qui ouvre les portes des meilleures opportunités.</p>
+                <!-- Ce bouton peut pointer vers la page de contact ou de commande -->
+                <a href="#" class="cta-button nav-contact">Obtenir mon CV optimisé</a>
+            </div>
+        </section>
+
+        <section id="faq" class="page-section faq-section">
+            <h2 class="section-title">Questions Fréquentes</h2>
+            <div class="content-section">
+                <div class="faq-item">
+                    <div class="faq-question">Mon CV actuel est-il compatible avec les ATS ?</div>
+                    <div class="faq-answer">
+                        <p>Probablement pas à 100%. Beaucoup de CV modernes, surtout ceux créés avec des outils graphiques, utilisent des formats que les ATS ne peuvent pas lire correctement. Notre service d'optimisation garantit que la structure et le contenu sont parfaitement interprétables par ces systèmes.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">En combien de temps recevrai-je mon CV optimisé ?</div>
+                    <div class="faq-answer">
+                        <p>Notre processus standard prend entre 3 et 5 jours ouvrables. Nous proposons également une option express pour une livraison en 48 heures si vous êtes pressé par une date limite de candidature.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Est-ce que l'optimisation ATS va rendre mon CV ennuyeux ?</div>
+                    <div class="faq-answer">
+                        <p>Absolument pas ! Notre défi est de trouver le parfait équilibre. Nous créons un CV qui est d'abord validé par les robots, puis qui séduit les recruteurs par sa clarté, son professionnalisme et la mise en valeur de vos atouts. Vous recevrez deux versions : une optimisée pour les ATS et une version design pour les contacts directs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2024 cv p par ABMCY. Tous droits réservés.</p>
+        <div class="footer-links">
+            <a href="#">Mentions légales</a>
+            <a href="#">Politique de confidentialité</a>
+            <a href="#" class="nav-contact">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isActive = question.classList.contains('active');
+
+                    // Fermer toutes les autres réponses
+                    faqQuestions.forEach(q => {
+                        q.classList.remove('active');
+                        q.nextElementSibling.style.display = 'none';
+                    });
+
+                    // Ouvrir ou fermer la réponse cliquée
+                    if (!isActive) {
+                        question.classList.add('active');
+                        answer.style.display = 'block';
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

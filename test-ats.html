@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>💎  - Analyseur de CV ProPlus (Local)</title>
+    <style>
+        /*
+        * CSS - Esthétique Sombre Premium Institutionnelle
+        * Thème "Bleu Nuit"
+        */
+        :root {
+            --color-dark: #0d1b2a; /* Bleu nuit très sombre */
+            --color-medium: #1b263b; /* Bleu nuit moyen */
+            --color-light-text: #e0e0e0;
+            --color-accent-main: #00bcd4; /* Cyan/Turquoise Institutionnel */
+            --color-success: #4caf50;
+            --color-failure: #ff5252;
+            --color-warning: #ffb300;
+            --color-shadow: rgba(0, 0, 0, 0.5);
+            --font-family-main: 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-light-text);
+            font-family: var(--font-family-main);
+            margin: 0;
+            padding: 0; /* Padding déplacé vers le main */
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 15px 20px;
+            background-color: rgba(13, 27, 42, 0.85); /* Fond bleu nuit avec transparence */
+            backdrop-filter: blur(10px); /* Effet de flou pour le fond */
+            border-bottom: 1px solid var(--color-medium);
+            position: sticky; /* Barre de navigation fixe */
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #nav-links {
+            margin-top: 10px;
+        }
+
+        #nav-links a {
+            color: var(--color-light-text);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        h1 {
+            color: var(--color-accent-main);
+            margin-top: 0;
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        h2, h3, h4 {
+            color: var(--color-light-text);
+        }
+
+        main {
+            max-width: 1400px; /* Augmenté pour la nouvelle disposition */
+            margin: 0 auto; /* Centré, sans marge en haut */
+            background-color: #2a3b4d; /* Bleu plus clair pour le contenu */
+            padding: 30px 30px 50px 30px; /* Ajout de padding en bas */
+            border-radius: 12px;
+            box-shadow: 0 8px 25px var(--color-shadow);
+        }
+
+        /* Section Upload */
+        #upload-section {
+            text-align: center;
+        }
+
+        #cv-file-input {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid var(--color-accent-main);
+            border-radius: 4px;
+            background-color: var(--color-dark);
+            color: var(--color-light-text);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: var(--color-accent-main);
+            color: var(--color-dark);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s, opacity 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #00e5ff;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: var(--color-light-text);
+            border: 1px dashed var(--color-medium);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        /* Section Rapport */
+        #report-section {
+            padding-top: 20px;
+        }
+
+        #global-score-card {
+            background-color: var(--color-medium);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid var(--color-accent-main);
+        }
+
+        #score-circle {
+            width: 180px;
+            height: 180px;
+            margin: 20px auto;
+            border: 8px solid var(--color-accent-main);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        #global-score-value {
+            font-size: 4em;
+            font-weight: 900;
+            line-height: 1;
+            color: var(--color-accent-main);
+        }
+
+        .category h4 {
+            background-color: var(--color-medium);
+            padding: 10px;
+            border-radius: 4px 4px 0 0;
+            margin-top: 30px;
+            color: var(--color-accent-main);
+            border-bottom: 2px solid var(--color-accent-main);
+        }
+
+        .criterion {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--color-medium);
+            align-items: center;
+        }
+        
+        .criterion:last-child {
+            border-bottom: none;
+        }
+
+        .result-icon {
+            font-weight: bold;
+            font-size: 1.3em;
+            width: 30px;
+            text-align: right;
+        }
+
+        .result-icon.pass { color: var(--color-success); }
+        .result-icon.fail { color: var(--color-failure); }
+
+        /* Nouvelle disposition du rapport */
+        #report-main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        #subscores-and-report {
+            flex: 2; /* Prend 2/3 de l'espace */
+            min-width: 400px;
+        }
+
+        #pdf-viewer-container {
+            flex: 1; /* Prend 1/3 de l'espace */
+            min-width: 300px;
+            background-color: var(--color-medium);
+            padding: 20px;
+            border-radius: 8px;
+            height: 80vh; /* Hauteur fixe pour le conteneur */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #pdf-viewer-container h3 {
+            color: var(--color-accent-main);
+            margin-top: 0;
+        }
+
+        #pdf-viewer {
+            overflow-y: auto; /* Permet de scroller entre les pages du PDF */
+            flex-grow: 1;
+            background: #fff; /* Fond blanc pour le canvas du PDF */
+        }
+
+        #recommendations {
+            margin-top: 40px;
+            background-color: var(--color-dark);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--color-warning);
+        }
+
+        #recommendations h3 {
+            color: var(--color-warning);
+        }
+
+        #recommendations-list {
+            list-style-type: '👉 ';
+            padding-left: 20px;
+        }
+
+        #recommendations-list li {
+            margin-bottom: 10px;
+            padding-left: 5px;
+        }
+        
+        .hidden { display: none; }
+        
+        #loading-message {
+            margin-top: 20px;
+            color: var(--color-warning);
+            font-size: 1.1em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            body { padding: 10px; font-size: 14px; }
+            main { padding: 15px; }
+            #score-circle { width: 140px; height: 140px; }
+            #global-score-value { font-size: 3em; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo">
+            <a href="index.html"><img src="img/logo.svg" alt="Logo cv p"></a>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html#services">Services</a>
+            <a href="index.html#process">Processus</a>
+            <a href="index.html#testimonials">Témoignages</a>
+            <a href="#" class="nav-contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="upload-section">
+            <h2>Notre testeur : Passez les filtres ATS et obtenez un CV puissant</h2>
+            <input type="file" id="cv-file-input" accept="application/pdf">
+            <button id="analyze-button" disabled>Analyser le CV</button>
+            <div id="loading-message" class="hidden">Chargement et analyse du PDF en cours... Ne quittez pas la page.</div>
+            <p class="disclaimer">Un CV bien traité reste un parcours bien défini.</p>
+        </section>
+
+        <section id="report-section" class="hidden">
+            <div id="global-score-card">
+                <h3>Score Global</h3>
+                <div id="score-circle">
+                    <span id="global-score-value">--</span><span style="font-size: 0.6em; align-self: flex-end;">/100</span>
+                </div>
+                <p id="global-appreciation"></p>
+            </div>
+
+            <div id="report-main-content">
+                <div id="subscores-and-report">
+                    <h2>📊 Rapport d'Analyse Détaillé</h2>
+    
+                    <div id="criteria-report">
+                        <div id="file-criteria" class="category"></div>
+                        <div id="content-criteria" class="category"></div>
+                        <div id="readability-criteria" class="category"></div>
+                        <div id="structure-criteria" class="category"></div>
+                    </div>
+    
+                    <div id="recommendations">
+                        <h3>🎯 Recommandations Prioritaires (Actions Correctives)</h3>
+                        <ul id="recommendations-list"></ul>
+                    </div>
+                </div>
+                <div id="pdf-viewer-container">
+                    <h3>Aperçu du CV</h3>
+                    <div id="pdf-viewer"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2024 cv p par ABMCY. Tous droits réservés.</p>
+        <div class="footer-links">
+            <a href="#">Mentions légales</a>
+            <a href="#">Politique de confidentialité</a>
+            <a href="#" class="nav-contact">Contact</a>
+        </div>
+    </footer>
+
+    <!-- Charger la librairie PDF.js juste avant le script qui l'utilise -->
+    <script type="module">
+        // --- Importation et Configuration de PDF.js via ES Module ---
+        // C'est la méthode moderne qui garantit que la librairie est chargée avant l'exécution du code.
+        await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js');
+        // La librairie s'attache à l'objet global `window`. On y accède via `window.pdfjsLib`.
+        const { pdfjsLib } = window;
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+        
+        // Le reste du code s'exécute en toute sécurité ici.
+
+        // --- Éléments du DOM ---
+        const cvFileInput = document.getElementById('cv-file-input');
+        const analyzeButton = document.getElementById('analyze-button');
+        const loadingMessage = document.getElementById('loading-message');
+        const uploadSection = document.getElementById('upload-section');
+        const reportSection = document.getElementById('report-section');
+
+        // --- Configuration et Poids ---
+       // Taille maximale recommandée du fichier PDF
+const RECOMMENDED_MAX_SIZE_KB = 200;
+
+// Mots-clés métiers (avec synonymes et variantes)
+const JOB_KEYWORDS = [
+  "développeur", "programmeur", "ingénieur logiciel", "fullstack", "backend", "frontend",
+  "chef de projet", "project manager", "scrum master",
+  "ingénieur", "technicien", "architecte digital",
+  "marketing", "communication", "community manager", "growth hacker",
+  "commercial", "business developer", "sales", "account manager",
+  "data scientist", "analyste", "data analyst", "BI", "machine learning",
+  "designer", "ux", "ui", "graphiste", "webdesigner",
+  "comptable", "finance", "contrôleur de gestion", "audit",
+  "ressources humaines", "rh", "talent acquisition", "recruteur",
+  "logistique", "supply chain", "gestionnaire stock", "transport"
+];
+
+// Titres de sections enrichis
+const SECTION_TITLES = [
+    // Expériences (FR & EN)
+    "expérience", "expériences", "parcours professionnel", "carrière", "historique", "missions", "projets", "réalisations",
+    "travail", "emploi", "jobs", "stage", "internship", "experience", "professional experience", "career", "work history",
+    "achievements", "employment",
+
+    // Formations (FR & EN)
+    "formation", "formations", "éducation", "diplômes", "études", "scolarité", "apprentissage", "certifications", "cours",
+    "université", "école", "college", "academic background", "education", "training", "degrees", "studies", "schooling",
+
+    // Compétences techniques (FR & EN)
+    "compétences", "skills", "savoir-faire", "expertise", "technologies", "outils", "logiciels", "stack", "hard skills",
+    "aptitudes techniques", "maîtrises", "connaissances", "competencies", "expertise", "tools", "software", "technical skills",
+    "knowledge",
+
+    // Langues (FR & EN)
+    "langues", "languages", "idiomes", "bilingue", "multilingue", "anglais", "français", "wolof", "espagnol", "allemand",
+    "italien", "chinois", "japonais", "english", "french", "spanish", "german", "italian", "chinese", "japanese",
+
+    // Profil / Contact (FR & EN)
+    "contact", "coordonnées", "informations personnelles", "profil", "à propos", "présentation", "résumé", "bio",
+    "informations de contact", "identité", "informations générales", "profile", "about", "summary", "contact information",
+
+    // Soft skills (FR & EN)
+    "soft skills", "savoir-être", "qualités", "atouts", "forces", "traits de personnalité", "compétences comportementales",
+    "valeurs", "points forts", "aptitudes relationnelles", "qualities", "strengths", "personality traits", "behavioral skills",
+    "values", "core competencies",
+
+    // Centres d’intérêt (FR & EN)
+    "centres d’intérêt", "hobbies", "loisirs", "passions", "activités extra-professionnelles", "engagement associatif",
+    "bénévolat", "volontariat", "sports", "culture", "interests", "leisure", "passions", "extracurricular activities",
+    "volunteering",
+
+    // Références (FR & EN)
+    "références", "recommendations", "contacts professionnels", "témoignages", "lettres de recommandation", "references"
+];
+
+// Verbes d’action enrichis
+const ACTION_VERBS = [
+    // FR
+    "géré", "dirigé", "supervisé", "piloté", "optimisé", "amélioré", "rationalisé", "développé", "conçu", "implémenté",
+    "programmé", "augmenté", "boosté", "accroître", "réduit", "diminué", "minimisé", "créé", "fondé", "initié", "analysé",
+    "étudié", "diagnostiqué", "formé", "encadré", "coaché", "négocié", "convaincu", "lancé", "déployé", "introduit",
+    // EN
+    "managed", "directed", "supervised", "led", "optimized", "improved", "streamlined", "developed", "designed", "implemented",
+    "programmed", "increased", "boosted", "grew", "reduced", "decreased", "minimized", "created", "founded", "initiated",
+    "analyzed", "studied", "diagnosed", "trained", "mentored", "coached", "negotiated", "convinced", "launched", "deployed",
+    "introduced", "achieved", "built", "coordinated", "delivered", "engineered", "established", "facilitated", "generated"
+];
+
+// Soft skills enrichis
+const SOFT_SKILLS = [
+  "autonomie", "indépendance",
+  "rigueur", "discipline", "précision",
+  "créativité", "innovation", "imagination",
+  "communication", "aisance relationnelle", "expression",
+  "esprit d'équipe", "collaboration", "coopération", "teamwork",
+  "résolution de problèmes", "problem solving", "analyse",
+  "adaptabilité", "flexibilité", "polyvalence",
+  "organisation", "gestion du temps", "planification",
+  "leadership", "management", "prise d’initiative",
+  "proactivité", "anticipation", "dynamisme", "proactivity", "autonomy", "rigor", "creativity", "adaptability", "organization",
+  "time management", "problem-solving"
+];
+
+// Tolérance de répétition
+const MAX_REPETITION_TOLERANCE = 5;
+        const WEIGHTS = {
+            FILE: 0.25,
+            CONTENT: 0.35,
+            READABILITY: 0.20,
+            STRUCTURE: 0.20,
+        };
+
+        // Définit chaque critère, son poids relatif dans la catégorie, et sa recommandation
+        const CRITERIA = [
+            // Fichier (25%)
+            { id: 'file-format', category: 'FILE', description: 'Format PDF valide', weight: 0.2, recommendation: 'Utilisez uniquement le format PDF standard.' },
+            { id: 'file-size', category: 'FILE', description: `Taille ≤ ${RECOMMENDED_MAX_SIZE_KB} Ko`, weight: 0.2, recommendation: `Réduisez la taille de votre fichier. Compression recommandée sous ${RECOMMENDED_MAX_SIZE_KB} Ko.` },
+            { id: 'file-orientation', category: 'FILE', description: 'Orientation portrait sur toutes les pages', weight: 0.2, recommendation: 'Assurez-vous que l\'orientation de toutes les pages est en mode portrait.' },
+            { id: 'file-naming', category: 'FILE', description: 'Nom: Prénom_Nom_PosteVisé.pdf', weight: 0.2, recommendation: 'Renommez votre fichier (ex: John_Doe_Developpeur.pdf).' },
+            { id: 'file-filling', category: 'FILE', description: 'Dernière page remplie ≥ 1/3 (ou CV 1 page)', weight: 0.2, recommendation: 'Évitez d\'avoir une dernière page quasi vide ; optimisez la mise en page ou compressez le contenu.' },
+
+            // Contenu (35%)
+            { id: 'content-name', category: 'CONTENT', description: 'Prénom et nom présents (facilement)', weight: 0.15, recommendation: 'Vos prénom et nom doivent être clairs et visibles dans les 100 premiers mots.' },
+            { id: 'content-email', category: 'CONTENT', description: 'Email professionnel détecté', weight: 0.15, recommendation: 'Incluez une adresse email professionnelle valide et claire.' },
+            { id: 'content-phone', category: 'CONTENT', description: 'Numéro de téléphone valide (format international/national)', weight: 0.1, recommendation: 'Assurez-vous que votre numéro de téléphone est complet et valide.' },
+            { id: 'content-mobility', category: 'CONTENT', description: 'Mobilité/adresse précisée (Ville, remote/hybride)', weight: 0.05, recommendation: 'Précisez votre lieu de résidence, ou votre statut de mobilité (télétravail, hybride, etc.).' },
+            { id: 'content-keywords', category: 'CONTENT', description: `Mots-clés métier détectés (au moins 3)`, weight: 0.15, recommendation: `Intégrez les mots-clés spécifiques au poste visé dans le corps du texte (Ex: ${JOB_KEYWORDS.slice(0, 2).join(', ')}, etc.).` },
+            { id: 'content-actionverbs', category: 'CONTENT', description: 'Utilisation de verbes d\'action (au moins 5)', weight: 0.15, recommendation: 'Utilisez des verbes d\'action pour décrire vos réalisations (ex: "géré", "optimisé", "développé").' },
+            { id: 'content-kpis', category: 'CONTENT', description: 'KPI / résultats chiffrés (%, volume, temps)', weight: 0.1, recommendation: 'Chiffrez vos réussites (Ex: "augmenté de 20%", "géré 50 projets").' },
+            { id: 'content-repetition', category: 'CONTENT', description: `Faible répétition lexicale (Max ${MAX_REPETITION_TOLERANCE}x)`, weight: 0.05, recommendation: 'Utilisez une diversité lexicale pour éviter la répétition excessive de certains mots.' },
+            { id: 'content-spelling', category: 'CONTENT', description: 'Orthographe/grammaire correcte (estimation)', weight: 0.1, recommendation: 'Relisez attentivement pour corriger les fautes d\'orthographe et de grammaire.' },
+
+            // Lisibilité (20%)
+            { id: 'readability-titles', category: 'READABILITY', description: 'Titres de rubriques majeurs présents', weight: 0.3, recommendation: 'Utilisez des titres de rubriques clairs (Expérience, Formation, etc.).' },
+            { id: 'readability-language', category: 'READABILITY', description: 'Langue cohérente (FR ou EN majoritaire)', weight: 0.3, recommendation: 'Assurez-vous que tout le CV est rédigé dans une seule langue (français ou anglais).' },
+            { id: 'readability-hierarchy', category: 'READABILITY', description: 'Hiérarchie structurée (Titres > Sous-titres)', weight: 0.4, recommendation: 'Améliorez la hiérarchie du document (taille et style des titres vs. sous-titres).' },
+
+            // Structure (20%)
+            { id: 'structure-education', category: 'STRUCTURE', description: 'Section Formations/diplômes présente', weight: 0.25, recommendation: 'Ajoutez une section "Formation" ou "Éducation".' },
+            { id: 'structure-experience', category: 'STRUCTURE', description: 'Section Expériences/projets présente', weight: 0.25, recommendation: 'Ajoutez une section "Expériences professionnelles" ou "Projets".' },
+            { id: 'structure-techskills', category: 'STRUCTURE', description: 'Compétences informatiques/techniques mentionnées', weight: 0.2, recommendation: 'Détaillez vos compétences techniques (logiciels, langages, outils) dans une section "Compétences".' },
+            { id: 'structure-languages', category: 'STRUCTURE', description: 'Compétences linguistiques mentionnées', weight: 0.15, recommendation: 'Mentionnez vos niveaux en langues étrangères (ex: Anglais - Courant, Espagnol - Notions).' },
+            { id: 'structure-softskills', category: 'STRUCTURE', description: 'Savoir-être / soft skills mentionnés', weight: 0.15, recommendation: 'Ajoutez une liste de vos soft skills (ex: autonomie, esprit d\'équipe, etc.).' },
+            // Note: Typographie, Contraste, Photo sont notés par défaut car non évaluables en texte brut.
+        ];
+
+        // --- Logique d'Analyse ---
+        
+        // Initialisation des scores
+        let analysisResults = {};
+        
+        function initializeResults() {
+            return {
+                FILE: { score: 0, maxScore: WEIGHTS.FILE * 100, criteria: [] },
+                CONTENT: { score: 0, maxScore: WEIGHTS.CONTENT * 100, criteria: [] },
+                READABILITY: { score: 0, maxScore: WEIGHTS.READABILITY * 100, criteria: [] },
+                STRUCTURE: { score: 0, maxScore: WEIGHTS.STRUCTURE * 100, criteria: [] },
+                globalScore: 0,
+                recommendations: [],
+                text: "",
+            };
+        }
+
+        // Fonction pour ajouter un résultat et une recommandation si échec
+        function addResult(id, pass, customRecommendation, results) {
+            const criterion = CRITERIA.find(c => c.id === id);
+            if (!criterion) return;
+            
+            // Calcul du poids réel du critère (Poids Catégorie * Poids Relatif)
+            const actualWeight = WEIGHTS[criterion.category] * criterion.weight * 100;
+
+            results[criterion.category].criteria.push({
+                description: criterion.description,
+                pass: pass,
+                recommendation: pass ? '' : (customRecommendation || criterion.recommendation),
+            });
+            
+            if (pass) {
+                results[criterion.category].score += actualWeight;
+            } else {
+                if (!results.recommendations.includes(customRecommendation || criterion.recommendation)) {
+                    results.recommendations.push(customRecommendation || criterion.recommendation);
+                }
+            }
+        }
+
+        // --- Fonctions d'extraction PDF (PDF.js) ---
+
+        // Fonction pour extraire le texte d'un fichier PDF
+        async function extractTextFromPDF(file) {
+            const fileReader = new FileReader();
+            fileReader.readAsArrayBuffer(file);
+
+            return new Promise((resolve, reject) => {
+                fileReader.onload = async function() {
+                    try {
+                        const arrayBuffer = this.result;
+                        const loadingTask = pdfjsLib.getDocument({ 
+                            data: arrayBuffer,
+                            standardFontDataUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/standard_fonts/`
+                        });
+                        const pdf = await loadingTask.promise;
+                        
+                        // Lancer le rendu du PDF en parallèle
+                        renderPDF(pdf);
+
+                        let fullText = "";
+                        // Parcourir toutes les pages
+                        for (let i = 1; i <= pdf.numPages; i++) {
+                            const page = await pdf.getPage(i);
+                            const textContent = await page.getTextContent();
+                            fullText += textContent.items.map(item => item.str).join(' ') + '\n';
+                        }
+
+                        resolve(fullText);
+                    } catch (error) {
+                        reject('Erreur lors de l\'extraction du PDF. Fichier peut-être corrompu ou illisible.');
+                    }
+                };
+                fileReader.onerror = () => reject('Erreur de lecture du fichier.');
+            });
+        }
+
+        // Nouvelle fonction pour afficher le PDF dans le viewer
+        async function renderPDF(pdf) {
+            const viewer = document.getElementById('pdf-viewer');
+            viewer.innerHTML = ''; // Vider l'aperçu précédent
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const viewport = page.getViewport({ scale: 1.5 });
+                
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                canvas.style.maxWidth = '100%';
+                canvas.style.height = 'auto';
+                
+                viewer.appendChild(canvas);
+                await page.render({ canvasContext: context, viewport: viewport }).promise;
+            }
+        }
+
+        // --- Fonctions d'Analyse par Catégorie ---
+        
+        function evaluateFile(file, fileName, results) {
+            results.FILE.criteria.push({ description: 'Uniformité typographique (par défaut)', pass: true, recommendation: 'Recommandation : Vérifiez la cohérence des polices et des tailles de texte.', weight: 0.00 });
+            results.FILE.criteria.push({ description: 'Contraste lisible (par défaut)', pass: true, recommendation: 'Recommandation : Assurez-vous d\'un bon contraste entre le texte et le fond.', weight: 0.00 });
+            results.FILE.criteria.push({ description: 'Photo professionnelle ou absence (par défaut)', pass: true, recommendation: 'Recommandation : L\'absence de photo n\'est pas pénalisante, mais si vous en mettez une, elle doit être professionnelle.', weight: 0.00 });
+
+            // 1. Format PDF valide
+            let isPDF = file.type === 'application/pdf';
+            addResult('file-format', isPDF, null, results);
+
+            // 2. Taille ≤ seuil défini
+            let fileSizeKB = file.size / 1024;
+            let isSmallEnough = fileSizeKB <= RECOMMENDED_MAX_SIZE_KB;
+            addResult('file-size', isSmallEnough, `La taille (${fileSizeKB.toFixed(0)} Ko) dépasse le seuil de ${RECOMMENDED_MAX_SIZE_KB} Ko. Compression requise.`, results);
+            
+            // 3. Orientation portrait (Impossible à évaluer précisément sans la structure du PDF, on donne un PASS par défaut)
+            addResult('file-orientation', true, null, results); // Par défaut: PASS
+
+            // 4. Nom de fichier contient prénom + nom + poste
+            const nameRegex = /\b([a-zA-ZÀ-ÿ'-]+)\s+([a-zA-ZÀ-ÿ'-]+)\b/; // Regex améliorée pour les noms
+            const nameMatch = results.text.match(nameRegex);
+            let nameInFile = nameMatch ? (fileName.toLowerCase().includes(nameMatch[1].toLowerCase()) && fileName.toLowerCase().includes(nameMatch[2].toLowerCase())) : false;
+            let jobPart = JOB_KEYWORDS.some(k => fileName.toLowerCase().includes(k.toLowerCase()));
+            let namingValid = nameInFile && jobPart;
+            addResult('file-naming', namingValid, `Le nom du fichier doit inclure votre nom, prénom et le poste visé (ex: John_Doe_Developpeur.pdf).`, results);
+
+            // 5. Dernière page remplie ≥ 1/3 (Non évaluable avec ce niveau d'API, on donne un PASS par défaut sauf si le fichier est gros et long)
+            let isLongAndSmall = fileSizeKB > 300 && results.text.split('\n').length > 100;
+            addResult('file-filling', !isLongAndSmall, "Optimisez l'espace ou réduisez la longueur de votre CV pour éviter une dernière page vide.", results); // Heuristique simple
+            
+            // Pour les critères non-évaluables, on crédite le score pour ne pas pénaliser
+            results.FILE.score = results.FILE.criteria.filter(c => c.pass).reduce((sum, c) => sum + (CRITERIA.find(cr => cr.id === c.id)?.weight * WEIGHTS.FILE * 100 || 0), 0);
+        }
+
+        function evaluateContent(text, results) {
+            const textLower = text.toLowerCase();
+            
+            // 1. Prénom et nom présents (Chercher dans les 500 premiers caractères)
+            // Regex très flexible qui cherche deux mots capitalisés (Prénom NOM ou NOM Prénom) au début du document.
+            const nameRegex = /^\s*([A-ZÀ-ÿ][a-zÀ-ÿ'-]+)\s+([A-ZÀ-ÿ][A-ZÀ-ÿ'-]+)\b/m;
+            // On teste sur le texte original pour profiter de la casse (majuscules).
+            let namePresent = nameRegex.test(text.substring(0, 300));
+            addResult('content-name', namePresent, null, results);
+
+            // 2. Email professionnel détecté
+            const emailRegex = /[\w.-]+@[\w-]+\.[a-z]{2,}/i;
+            let emailPresent = emailRegex.test(text);
+            addResult('content-email', emailPresent, null, results);
+
+            // 3. Numéro de téléphone valide
+            // Regex étendue pour les formats FR, US, UK, DE et internationaux génériques.
+            const phoneRegex = /(\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}/g;
+            let phonePresent = phoneRegex.test(text);
+            addResult('content-phone', phonePresent, "Incluez un numéro de téléphone valide dans un format reconnaissable (ex: +33 6... ou 06...).", results);
+
+            // 4. Mobilité/adresse précisée (Ville ou "remote" / "hybride")
+            const locationRegex = /(paris|lyon|marseille|france|london|new york|berlin|\bremote\b|\bhybride\b|\bhybrid\b|\bon-site\b)/i;
+            let locationPresent = locationRegex.test(text);
+            addResult('content-mobility', locationPresent, "Précisez votre lieu ou votre statut de mobilité (remote, hybrid, on-site, etc.).", results);
+
+            // 5. Mots-clés métier détectés
+            let keywordCount = 0;
+            JOB_KEYWORDS.forEach(keyword => {
+                if (new RegExp('\\b' + keyword + '\\b', 'gi').test(text)) {
+                    keywordCount++;
+                }
+            });
+            let keywordsPresent = keywordCount >= 3;
+            addResult('content-keywords', keywordsPresent, `Intégrez au moins 3 mots-clés pertinents pour le poste (actuellement ${keywordCount} détecté(s)).`, results);
+
+            // 6. KPI / résultats chiffrés
+            const kpiRegex = /(?:augmenté|réduit|géré|optimisé|increased|reduced|managed|achieved)[\s\w]*(\d{1,3}(?:[.,]\d+)?%?)|(\d{1,3}(?:[.,]\d+)?%|\b[€$£]\s?\d+([.,]\d+)?\s?[kKmM]?\b|\b\d{2,}\b\s*(?:clients|projets|users|sales|euros|dollars))/gi;
+            let kpiPresent = (text.match(kpiRegex) || []).length >= 2;
+            addResult('content-kpis', kpiPresent, "Utilisez des chiffres pour quantifier vos résultats (%, volumes, temps, nombre de projets, etc.).", results);
+
+            // Nouveau critère : Verbes d'action
+            let actionVerbCount = 0;
+            ACTION_VERBS.forEach(verb => {
+                if (new RegExp('\\b' + verb + '\\b', 'gi').test(text)) {
+                    actionVerbCount++;
+                }
+            });
+            addResult('content-actionverbs', actionVerbCount >= 5, `Utilisez plus de verbes d'action pour dynamiser vos descriptions (actuellement ${actionVerbCount} détecté(s)).`, results);
+
+            // 7. Faible répétition lexicale
+            const words = textLower.match(/\b\w{4,}\b/g) || [];
+            const wordFrequencies = {};
+            words.forEach(word => {
+                wordFrequencies[word] = (wordFrequencies[word] || 0) + 1;
+            });
+            const highlyRepeated = Object.keys(wordFrequencies).filter(word => wordFrequencies[word] > MAX_REPETITION_TOLERANCE);
+            let repetitionLow = highlyRepeated.length === 0;
+            let repetitionRec = repetitionLow ? '' : `Évitez la répétition excessive de mots comme : ${highlyRepeated.slice(0, 3).join(', ')}.`;
+            addResult('content-repetition', repetitionLow, repetitionRec, results);
+
+            // 8. Orthographe/grammaire (Heuristique: détection de fautes courantes)
+            const commonErrorsRegex = new RegExp([
+                // Erreurs françaises
+                "c'est\\s+que", "malgrès", "\\bai\\b\\s+fais", "j'ai\\s+créer", "être\\s+à\\s+l'aise", "des\\s+poste",
+                // Erreurs anglaises
+                "i has", "your welcome", "seperate", "definately", "goverment", "acheive"
+            ].join('|'), 'gi');
+            let spellingCorrect = !commonErrorsRegex.test(text);
+            addResult('content-spelling', spellingCorrect, "Vérifiez l'orthographe et la grammaire, des erreurs courantes ont été détectées.", results);
+        }
+
+        function evaluateReadability(text, results) {
+            const textLower = text.toLowerCase();
+
+            // 1. Titres de rubriques présents
+            const foundTitles = SECTION_TITLES.filter(title => textLower.includes(title)).length;
+            const titlesPresent = foundTitles >= 4; // On demande au moins 4 des titres principaux
+            addResult('readability-titles', titlesPresent, `Assurez la présence des rubriques clés (Expérience, Formation, Compétences...). Au moins 4 sont attendues.`, results);
+
+            // 2. Langue cohérente (Simple détection FR/EN)
+            const frWords = (textLower.match(/\ble\b|\bla\b|\bun\b|\bune\b|\bet\b|\bnous\b/g) || []).length;
+            const enWords = (textLower.match(/\bthe\b|\band\b|\bwe\b|\bfor\b|\bfrom\b/g) || []).length;
+            let languageCoherent = (frWords > enWords * 2) || (enWords > frWords * 2) || (frWords < 5 && enWords < 5); // L'une doit largement dominer
+            addResult('readability-language', languageCoherent, "Assurez-vous que la langue utilisée est homogène (ne mélangez pas trop le français et l'anglais).", results);
+
+            // 3. Hiérarchie structurée (Impossible en texte brut, on donne un PASS par défaut)
+            addResult('readability-hierarchy', true, 'Recommandation : La clarté des titres et sous-titres visuels est essentielle pour la lisibilité.', results);
+        }
+
+        function evaluateStructure(text, results) {
+            const textLower = text.toLowerCase();
+            
+            // 1. Section Formations/diplômes présente
+            let educationPresent = ['formation', 'éducation', 'diplôme', 'education', 'training', 'degree', 'academic'].some(kw => textLower.includes(kw));
+            addResult('structure-education', educationPresent, null, results);
+
+            // 2. Section Expériences/projets présente
+            let experiencePresent = ['expérience', 'projet', 'parcours', 'experience', 'project', 'career', 'employment'].some(kw => textLower.includes(kw));
+            addResult('structure-experience', experiencePresent, null, results);
+
+            // 3. Compétences informatiques/techniques mentionnées
+            let techSkillsPresent = ['compétences', 'skills', 'informatique', 'technique', 'logiciel', 'langage', 'technical', 'software', 'tools'].some(kw => textLower.includes(kw));
+            addResult('structure-techskills', techSkillsPresent, null, results);
+
+            // 4. Compétences linguistiques mentionnées
+            let languagesPresent = ['langue', 'anglais', 'espagnol', 'allemand', 'language', 'english', 'spanish', 'german'].some(kw => textLower.includes(kw));
+            addResult('structure-languages', languagesPresent, null, results);
+
+            // 5. Savoir-être / soft skills mentionnés
+            let softSkillsPresent = ['savoir-être', 'soft skills', 'autonomie', 'leadership', 'qualités', 'atouts', 'strengths', 'qualities'].some(kw => textLower.includes(kw));
+            addResult('structure-softskills', softSkillsPresent, null, results);
+        }
+
+        // --- Gestionnaire d'Événements et Affichage ---
+        
+        cvFileInput.addEventListener('change', () => {
+            analyzeButton.disabled = !cvFileInput.files.length || cvFileInput.files[0].type !== 'application/pdf';
+        });
+
+        analyzeButton.addEventListener('click', handleAnalysis);
+
+        async function handleAnalysis() {
+            const file = cvFileInput.files[0];
+            if (!file || file.type !== 'application/pdf') return;
+
+            analyzeButton.disabled = true;
+            loadingMessage.classList.remove('hidden');
+            reportSection.classList.add('hidden'); // Cacher l'ancien rapport
+            uploadSection.classList.remove('hidden'); // S'assurer que la section upload est visible
+
+            try {
+                // 1. Extraction du Texte
+                const extractedText = await extractTextFromPDF(file); 
+                const fileName = file.name;
+                
+                // 2. Initialisation des Résultats
+                analysisResults = initializeResults();
+                analysisResults.text = extractedText;
+
+                // 3. Lancement de l'Analyse
+                evaluateFile(file, fileName, analysisResults);
+                evaluateContent(analysisResults.text, analysisResults);
+                evaluateReadability(analysisResults.text, analysisResults);
+                evaluateStructure(analysisResults.text, analysisResults);
+
+                // 4. Calcul du score global
+                const totalScore = analysisResults.FILE.score + analysisResults.CONTENT.score + analysisResults.READABILITY.score + analysisResults.STRUCTURE.score;
+                analysisResults.globalScore = Math.min(100, Math.round(totalScore)); // Limiter à 100
+
+                // 5. Affichage du Rapport
+                displayReport(analysisResults);
+                
+            } catch (error) {
+                alert(`Erreur d'analyse : ${error}. Veuillez essayer avec un autre fichier PDF ou vous assurer qu'il n'est pas scanné/protégé.`);
+                document.getElementById('loading-message').classList.add('hidden');
+                document.getElementById('analyze-button').disabled = false;
+            }
+        }
+
+        function displayReport(results) {
+            document.getElementById('upload-section').classList.add('hidden');
+            document.getElementById('report-section').classList.remove('hidden');
+            document.getElementById('loading-message').classList.add('hidden');
+            
+            // Mettre à jour le score global
+            document.getElementById('global-score-value').textContent = results.globalScore;
+            const scoreCard = document.getElementById('global-score-card');
+            
+            let appreciation = "À revoir. De gros efforts sont nécessaires sur les critères en rouge.";
+            if (results.globalScore >= 85) appreciation = "Exceptionnel ! Votre CV est optimisé et conforme aux standards premium.";
+            else if (results.globalScore >= 70) appreciation = "Très bon. Quelques ajustements suffiront pour atteindre l'excellence.";
+            else if (results.globalScore >= 50) appreciation = "Correct. Des améliorations significatives sur le fond ou la forme sont recommandées.";
+            
+            document.getElementById('global-appreciation').textContent = appreciation;
+            
+            // Remplir le rapport (✅/❌)
+            ['FILE', 'CONTENT', 'READABILITY', 'STRUCTURE'].forEach(categoryKey => {
+                const categoryDiv = document.getElementById(`${categoryKey.toLowerCase()}-criteria`);
+                categoryDiv.innerHTML = `
+                    <h4>${categoryKey.charAt(0) + categoryKey.slice(1).toLowerCase()} (${(WEIGHTS[categoryKey] * 100).toFixed(0)}%) - Sous-Score: ${results[categoryKey].score.toFixed(1)}/${results[categoryKey].maxScore.toFixed(0)}</h4>
+                `;
+                
+                results[categoryKey].criteria.forEach(item => {
+                    categoryDiv.innerHTML += `
+                        <div class="criterion">
+                            <span>${item.description}</span>
+                            <span class="result-icon ${item.pass ? 'pass' : 'fail'}">${item.pass ? '✅' : '❌'}</span>
+                        </div>
+                    `;
+                });
+            });
+
+            // Afficher les recommandations
+            const recList = document.getElementById('recommendations-list');
+            if (results.recommendations.length > 0) {
+                recList.innerHTML = results.recommendations.map(rec => `<li>${rec}</li>`).join('');
+            } else {
+                recList.innerHTML = '<li>Félicitations ! Aucune recommandation prioritaire détectée.</li>';
+            }
+
+            // Scroll vers la section du rapport
+            document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
+
+            // Activer les liens de navigation
+            document.querySelectorAll('#nav-links a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+
+    </script>
+
+</body>
+</html>

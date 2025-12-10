@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choix des services - cv p par ABMCY</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Ajout de Font Awesome pour les icônes professionnelles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .card-icon .fas {
+            color: #4A90E2; /* Couleur bleue pour les icônes */
+        }
+        /* Styles pour la nouvelle section ATS */
+        .ats-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap; /* Pour la responsivité sur mobile */
+            margin-top: 40px;
+        }
+        .ats-image {
+            flex: 1;
+            min-width: 280px;
+        }
+        .ats-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .ats-content {
+            flex: 1.5; /* Donne plus d'espace au texte */
+            min-width: 300px;
+        }
+        .ats-content .section-title {
+            text-align: left; /* Aligne le titre à gauche */
+        }
+        .ats-content p {
+            text-align: justify; /* Justifie le texte des paragraphes */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo">
+            <img src="img/logo.svg" alt="Logo cv p">
+        </div>
+        <nav class="main-nav">
+            <a href="#services">Services</a>
+            <a href="#process">Processus</a>
+            <a href="#testimonials">Témoignages</a>
+            <a href="#" class="nav-contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-carousel-section">
+            <div class="carousel-container">
+                <!-- Slide 1 -->
+                <div class="carousel-slide active" data-color="#4A90E2">
+                    <div class="slide-content">
+                        <h1>Un CV qui vous rend confiant devant les recruteurs.</h1>
+                        <p>Simple, rapide et premium pour un résultat qui vous ressemble.</p>
+                    </div>
+                    <div class="slide-image"><img src="img/e.svg" alt="Personne confiante avec son CV"></div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-slide" data-color="#50E3C2">
+                    <div class="slide-content">
+                        <h1>Un CV qui passe à travers les filtres ATS et les systèmes robotisés.</h1>
+                        <p>Optimisé par l'IA et nos experts pour atteindre la bonne personne.</p>
+                    </div>
+                    <div class="slide-image"><img src="img/r.svg" alt="CV passant un filtre robotisé"></div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-slide" data-color="#F5A623">
+                    <div class="slide-content">
+                        <h1>Des CV qui reflètent votre véritable parcours.</h1>
+                        <p>Nos rédacteurs créent un document percutant et aligné avec vos ambitions.</p>
+                    </div>
+                    <div class="slide-image"><img src="img/c.svg" alt="CV professionnel"></div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="carousel-slide" data-color="#BD10E0">
+                    <div class="slide-content">
+                        <h1>Des portfolios qui redessinent votre avenir.</h1>
+                        <p>Mettez en valeur vos projets via un mini-site personnel et élégant.</p>
+                    </div>
+                    <div class="slide-image"><img src="img/p.svg" alt="Portfolio en ligne"></div>
+                </div>
+            </div>
+            <div class="carousel-nav"></div>
+            <!-- AJOUTEZ CE BOUTON ICI -->
+            <a href="#services" class="scroll-down-button" aria-label="Faire défiler vers le bas">
+                <i class="arrow-down"></i>
+            </a>
+        </section>
+
+        <section id="services" class="page-section">
+            <h2 class="section-title">Nos services premium</h2>
+            <p class="section-subtitle">Choisissez la solution qui transformera votre parcours professionnel.</p>
+            <div class="services-container">
+                <div class="service-card">
+                    <div class="card-icon"><i class="fas fa-file-pen"></i></div>
+                    <h2>Optimisation CV</h2>
+                    <p>Analyse par IA et experts pour maximiser l'impact de votre CV actuel et passer les filtres ATS.</p>
+                    <a href="optimisation.html" class="card-button">Optimiser mon CV</a>
+                </div>
+                <div class="service-card">
+                    <div class="card-icon"><i class="fas fa-pen-nib"></i></div>
+                    <h2>Rédaction CV</h2>
+                    <p>Nos rédacteurs créent un CV sur mesure, percutant et aligné avec vos ambitions.</p>
+                    <a href="#" class="card-button">Choisir ce service</a>
+                </div>
+                <div class="service-card">
+                    <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+                    <h2>Test CV (ATS)</h2>
+                    <p>Testez  votre CV avec notre outil d'analyse ATS et obtenez un score instantané.</p>
+                    <a href="test-ats.html" class="card-button">Tester mon CV</a>
+                </div>
+                <div class="service-card">
+                    <div class="card-icon"><i class="fas fa-palette"></i></div>
+                    <h2>Création Portfolio</h2>
+                    <p>Mettez en valeur vos projets et réalisations via un mini-site personnel élégant.</p>
+                    <a href="#" class="card-button">Choisir ce service</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="ats-explanation" class="page-section" style="background-color: #f9f9f9;">
+            <div class="ats-container">
+                <div class="ats-image">
+                    <img src="img/ats.svg" alt="Illustration d'un CV passant un filtre de recrutement automatisé (ATS)">
+                </div>
+                <div class="ats-content">
+                    <h2 class="section-title">Ton CV est-il prêt pour les robots ?</h2>
+                    <p>De plus en plus d’entreprises utilisent des logiciels <strong>ATS (Applicant Tracking System)</strong> pour trier les candidatures. Un CV mal formaté ou sans les bons mots-clés peut être automatiquement rejeté, avant même d'atteindre un recruteur.</p>
+                    <p>Nous optimisons votre CV pour qu'il passe ces filtres avec succès et capte l'attention des bonnes personnes.</p>
+                    <br>
+                    <a href="ats.html" class="cta-button">Comprendre les ATS</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="page-section process-section">
+            <h2 class="section-title">Notre processus en 3 étapes</h2>
+            <p class="section-subtitle">Un parcours simple et transparent pour un résultat garanti.</p>
+            <div class="process-container">
+                <div class="process-step"><span>1</span><h3>Choisissez</h3><p>Sélectionnez le service (CV ou Portfolio) et envoyez vos informations.</p></div>
+                <div class="process-step"><span>2</span><h3>Collaborez</h3><p>Notre équipe vous contacte pour affiner vos besoins et objectifs.</p></div>
+                <div class="process-step"><span>3</span><h3>Recevez</h3><p>Obtenez votre document optimisé ou votre portfolio via un lien premium.</p></div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="page-section testimonial-section">
+            <h2 class="section-title">Ils nous ont fait confiance</h2>
+            <div class="testimonial-container">
+                <div class="testimonial-card">
+                    <p>"Le service de rédaction a complètement transformé mon CV. J'ai eu des retours positifs dès le premier envoi. Professionnel et efficace !"</p>
+                    <cite>— Alex Martin, Développeur Web</cite>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Le portfolio créé par ABMCY est magnifique. Il met parfaitement en valeur mes projets de design. Un vrai plus pour ma recherche d'emploi."</p>
+                    <cite>— Léa Dubois, UX/UI Designer</cite>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2024 cv p par ABMCY. Tous droits réservés.</p>
+        <p><a href="#">Mentions légales</a> | <a href="#">Contact</a></p>
+    </footer>
+
+    <script src="script.js"></script> <!-- Assurez-vous que cette ligne existe -->
+
+</body>
+</html>
