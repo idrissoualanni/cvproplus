@@ -1,11 +1,359 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulaire CV</title>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        color: #72c3da;
+    }
+    .container {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 24px;
+        border-radius: 8px;
+    }
+    h1 { 
+        text-align: center; 
+        color: #1eaadc; 
+        margin-bottom: 6px 
+    }
+    h2 { 
+        margin-top: 18px; 
+        color: #0a2b4c;
+    }
+    label { 
+        display: block; 
+        margin: 10px 0 5px;
+        font-weight: bold; 
+    }
+    input, textarea, select {
+        width: 100%; 
+        padding: 10px; 
+        border-radius: 4px; 
+        border: 0.3px solid #ccc; 
+        box-sizing: border-box;
+        font-size: 1rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        border-color: #087ca7;
+        box-shadow: 0 0 0 3px rgba(8, 124, 167, 0.1);
+    }
+    textarea { 
+        min-height: 50px;
+        max-height: 150px; 
+        resize: vertical;
+    }
+    .two-col { 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 8px; 
+    }
+    .flex-container {
+        display: flex;
+        justify-content: center; 
+        align-items: center;    
+        margin-top: 20px; 
+    }
+    button { 
+        background-color: #087ca7; 
+        color: #fff; 
+        padding: 10px 18px; 
+        border: none; 
+        border-radius: 6px; 
+        cursor: pointer; 
+        font-size: 1rem;
+    }
+    button:hover { 
+        background-color: #065f7f; 
+        padding: 12px 20px; 
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+    }
+    button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+    }
+    .status { 
+        display: none; 
+        margin-top: 12px; 
+        padding: 12px; 
+        border-radius: 6px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .status.success { 
+        background: #d4edda; 
+        color: #155724;
+    }
+    .status.error { 
+        background: #f8d7da; 
+        color: #721c24;
+    }
+    .hint { 
+        font-size: 0.9rem; 
+        color: #666;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    @media (max-width:700px) { 
+        .two-col { 
+            grid-template-columns: 1fr;
+        } 
+    }
+</style>
 </head>
 <body>
+<div class="container">
+    <h1>Formulaire CV</h1>
+    <p class="hint">Remplissez le formulaire ci-dessous.</p>
+
+    <form id="cvForm" novalidate>
+        <!-- Informations personnelles -->
+        <h2>Informations personnelles</h2>
+        <div class="two-col">
+            <div>
+                <label for="nom">Nom complet <span aria-hidden="true">*</span></label>
+                <input type="text" id="nom" name="nom" required minlength="2" placeholder="Prénom Nom">
+            </div>
+            <div>
+                <label for="email">Email <span aria-hidden="true">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="exemple@domaine.com">
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div>
+                <label for="telephone">Téléphone <span aria-hidden="true">*</span></label>
+                <input type="tel" id="telephone" name="telephone" required placeholder="+221 XX XXX XX XX">
+            </div>
+            <div>
+                <label for="linkedin">LinkedIn / Portfolio (URL)</label>
+                <input type="url" id="linkedin" name="linkedin" placeholder="https://...">
+            </div>
+        </div>
+        
+        <div class="two-col">
+            <div>
+                <label for="birthdate">Date de naissance (optionnel)</label>
+                <input type="date" id="birthdate" name="birthdate">
+            </div>
+            <div>
+                <label for="city">Ville</label>
+                <input type="text" id="city" name="city" placeholder="Ex: Dakar">
+            </div>
+        </div>
+
+        <!-- Objectif professionnel -->
+        <h2>Objectif professionnel</h2>
+        <label for="objectif">Titre / Objectif</label>
+        <input type="text" id="objectif" name="objectif" placeholder="Ex: Développeur Full-stack senior">
+
+        <!-- Expérience professionnelle -->
+        <h2>Expérience professionnelle</h2>
+        <label for="experience">Détaillez vos expériences</label>
+        <textarea id="experience" name="experience" placeholder="Entreprise — Poste — Dates — Missions principales"></textarea>
+
+        <!-- Formation -->
+        <h2>Formation</h2>
+        <label for="formation">Détails de formation</label>
+        <textarea id="formation" name="formation" placeholder="Formations suivies, certifications..."></textarea>
+
+        <!-- Formation académique complète -->
+        <h2>Formation académique</h2>
+        
+        <label for="diplome">Diplômes obtenus (Bac, Licence, Master…)</label>
+        <input type="text" id="diplome" name="diplome" placeholder="Ex: Master en Informatique">
+
+        <div class="two-col">
+            <div>
+                <label for="etablissement">Établissement et lieu</label>
+                <input type="text" id="etablissement" name="etablissement" placeholder="Ex: Université Cheikh Anta Diop, Dakar">
+            </div>
+            <div>
+                <label for="mention">Mention ou spécialisation</label>
+                <input type="text" id="mention" name="mention" placeholder="Ex: Génie Logiciel">
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div>
+                <label for="date-debut">Date de début</label>
+                <input type="date" id="date-debut" name="date-debut">
+            </div>
+            <div>
+                <label for="date-fin">Date de fin</label>
+                <input type="date" id="date-fin" name="date-fin">
+            </div>
+        </div>
+
+        <label for="certifications">Certifications complémentaires (optionnel)</label>
+        <textarea id="certifications" name="certifications" placeholder="Ex: Google Cloud Associate Engineer, AWS Certified Developer..."></textarea>
+
+        <!-- Compétences -->
+        <h2>Compétences</h2>
+        <label for="competences">Compétences techniques et soft skills</label>
+        <textarea id="competences" name="competences" placeholder="Ex: JavaScript, React, Communication, Travail en équipe"></textarea>
+
+        <!-- Projets -->
+        <h2>Projets (optionnel)</h2>
+        <label for="projets">Projets réalisés</label>
+        <textarea id="projets" name="projets" placeholder="Décrivez vos projets personnels ou professionnels"></textarea>
+
+        <div class="flex-container">
+            <button type="submit">Soumettre votre formulaire</button>
+        </div>
+        <div id="form-status" class="status" role="status" aria-live="polite"></div>
+    </form>
+</div>
+
+<script>
+// Configuration - Remplacez par l'URL de votre Google Apps Script
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxyMYBupdzLtrYGKfmp6hq-B6Kx8-vEdkMdvENYNe47uNO8Uwz_5da8aG7sI7l7lFyH7g/exec';
+
+// Récupération des éléments du DOM
+const form = document.getElementById('cvForm');
+const statusDiv = document.getElementById('form-status');
+
+// Fonction pour afficher les messages de statut
+function showStatus(message, type) {
+    statusDiv.textContent = message;
+    statusDiv.className = `status ${type}`;
+    statusDiv.style.display = 'block';
     
+    setTimeout(() => {
+        statusDiv.style.display = 'none';
+    }, 5000);
+}
+
+// Fonction pour valider le formulaire
+function validateForm(formData) {
+    const errors = [];
+    
+    if (!formData.nom || formData.nom.length < 2) {
+        errors.push('Le nom doit contenir au moins 2 caractères');
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+        errors.push('Email invalide');
+    }
+    
+    const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
+    if (!formData.telephone || !phoneRegex.test(formData.telephone) || formData.telephone.replace(/\D/g, '').length < 6) {
+        errors.push('Numéro de téléphone invalide');
+    }
+    
+    return errors;
+}
+
+// Fonction pour collecter les données du formulaire
+function getFormData() {
+    const formData = new FormData(form);
+    const data = {};
+    
+    for (let [key, value] of formData.entries()) {
+        data[key] = value.trim();
+    }
+    
+    return data;
+}
+
+// Gestionnaire de soumission du formulaire
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    console.log('=== DÉBUT SOUMISSION ===');
+    
+    const formData = getFormData();
+    console.log('Données:', formData);
+    
+    const errors = validateForm(formData);
+    if (errors.length > 0) {
+        console.log('Erreurs de validation:', errors);
+        showStatus(errors.join('. '), 'error');
+        return;
+    }
+    
+    const submitButton = form.querySelector('button');
+    const originalText = submitButton.textContent;
+    submitButton.disabled = true;
+    submitButton.textContent = 'Envoi en cours...';
+    
+    // Créer un FormData pour Google Apps Script
+    const googleFormData = new URLSearchParams();
+    for (let key in formData) {
+        googleFormData.append(key, formData[key]);
+    }
+    
+    console.log('URL:', APPS_SCRIPT_URL);
+    console.log('FormData préparé:', googleFormData.toString());
+    
+    try {
+        const response = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            body: googleFormData
+        });
+        
+        console.log('Response status:', response.status);
+        console.log('Response type:', response.type);
+        
+        // Attendre un peu pour que Google traite
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        showStatus('Formulaire soumis avec succès ! 🎉', 'success');
+        form.reset();
+        
+    } catch (error) {
+        console.error('=== ERREUR DÉTAILLÉE ===');
+        console.error('Type:', error.name);
+        console.error('Message:', error.message);
+        console.error('Stack:', error.stack);
+        showStatus('Erreur: ' + error.message, 'error');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+    }
+});
+
+// Validation en temps réel pour l'email
+document.getElementById('email').addEventListener('blur', function() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (this.value && !emailRegex.test(this.value)) {
+        this.style.borderColor = '#dc3545';
+    } else {
+        this.style.borderColor = '#ccc';
+    }
+});
+
+// Validation en temps réel pour le téléphone
+document.getElementById('telephone').addEventListener('blur', function() {
+    const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
+    const digitsOnly = this.value.replace(/\D/g, '');
+    if (this.value && (!phoneRegex.test(this.value) || digitsOnly.length < 6)) {
+        this.style.borderColor = '#dc3545';
+    } else {
+        this.style.borderColor = '#ccc';
+    }
+});
+
+// Limitation de la date de naissance (pas de date future)
+const birthdateInput = document.getElementById('birthdate');
+if (birthdateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    birthdateInput.setAttribute('max', today);
+}
+</script>
 </body>
 </html>
